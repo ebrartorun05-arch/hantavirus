@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Andes Virüsü Tanı Sistemi</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 font-sans min-h-screen flex items-center justify-center p-6">
+
+    <div class="max-w-md w-full bg-slate-800 rounded-3xl shadow-2xl overflow-hidden border border-slate-700">
+        <div class="bg-gradient-to-r from-red-600 to-indigo-600 p-6 text-center">
+            <h1 class="text-2xl font-bold tracking-tight text-white">Hantavirüs Tanı Asistanı</h1>
+            <p class="text-indigo-100 text-sm mt-1">Semptom Analiz Sihirbazı</p>
+        </div>
+
+        <div class="p-8 space-y-6">
+            <div class="space-y-2">
+                <label class="text-indigo-300 font-medium block">1. Ateşiniz var mı?</label>
+                <select id="ates" class="w-full bg-slate-700 p-3 rounded-xl border border-slate-600 outline-none focus:border-indigo-500 transition">
+                    <option value="0">Hayır (Normal)</option>
+                    <option value="2">Hafif (Kırgınlık)</option>
+                    <option value="5">Yüksek (38.5°+)</option>
+                </select>
+            </div>
+
+            <div class="space-y-2">
+                <label class="text-indigo-300 font-medium block">2. Öksürük veya nefes darlığı?</label>
+                <select id="solunum" class="w-full bg-slate-700 p-3 rounded-xl border border-slate-600 outline-none focus:border-indigo-500 transition">
+                    <option value="0">Yok</option>
+                    <option value="3">Hafif Öksürük</option>
+                    <option value="7">Şiddetli Nefes Darlığı</option>
+                </select>
+            </div>
+
+            <button onclick="analizEt()" class="w-full bg-white text-slate-900 font-bold py-4 rounded-2xl hover:bg-indigo-100 transition shadow-lg active:scale-95">
+                DURUMU KONTROL ET
+            </button>
+
+            <div id="sonucBox" class="hidden p-5 rounded-2xl text-center font-bold border transition-all duration-500">
+                <p id="sonucMetni"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function analizEt() {
+            const atesPuan = parseInt(document.getElementById('ates').value);
+            const solunumPuan = parseInt(document.getElementById('solunum').value);
+            const toplam = atesPuan + solunumPuan;
+            
+            const box = document.getElementById('sonucBox');
+            const metin = document.getElementById('sonucMetni');
+            
+            box.classList.remove('hidden', 'bg-red-500/20', 'bg-green-500/20', 'border-red-500/50', 'border-green-500/50', 'text-red-400', 'text-green-400');
+
+            if (toplam >= 7 || solunumPuan === 7) {
+                box.classList.add('bg-red-500/20', 'border-red-500/50', 'text-red-400');
+                metin.innerText = "🚨 RİSK YÜKSEK: Belirtileriniz ciddi. Lütfen en yakın hastaneye başvurun.";
+            } else {
+                box.classList.add('bg-green-500/20', 'border-green-500/50', 'text-green-400');
+                metin.innerText = "✅ RİSK DÜŞÜK: Şu an için acil bir durum görünmüyor, dinlenmeye devam edin.";
+            }
+            box.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
