@@ -1,4 +1,4 @@
-/* Sayfanın Genel Yapısı */
+/* Genel Ayarlar */
 body {
     margin: 0;
     padding: 0;
@@ -7,55 +7,85 @@ body {
     align-items: center;
     justify-content: center;
     font-family: 'Inter', sans-serif;
-    
-    /* 1. Dokunuş: Derin Lacivert ve Mor Gradyan Arka Plan */
-    background: radial-gradient(circle at top right, #1e1b4b, #0f172a, #020617);
-    background-attachment: fixed;
-    color: #f8fafc;
+    /* Derin Uzay Grisi Arka Plan */
+    background-color: #020617; 
+    overflow-x: hidden;
+    position: relative;
 }
 
-/* 2. Dokunuş: Arka plana hafif, hareketli bir ışık efekti ekler */
-body::before {
+/* 🌀 Arka Plandaki Aura Işıkları (Burası Havayı Değiştirir) */
+body::before, body::after {
     content: "";
     position: fixed;
-    top: 20%;
-    left: 20%;
-    width: 300px;
-    height: 300px;
-    background: rgba(99, 102, 241, 0.2); /* Indigo ışığı */
-    filter: blur(100px);
+    width: 50vw;
+    height: 50vw;
     border-radius: 50%;
+    filter: blur(120px);
     z-index: -1;
+    opacity: 0.4;
 }
 
-/* 3. Dokunuş: Soruların olduğu kutuyu "Cam Efekti" (Glassmorphism) yapar */
+/* Sağ üstteki morumsu ışık */
+body::before {
+    top: -10%;
+    right: -10%;
+    background: radial-gradient(circle, #4338ca, transparent);
+}
+
+/* Sol alttaki kırmızımsı ışık */
+body::after {
+    bottom: -10%;
+    left: -10%;
+    background: radial-gradient(circle, #7f1d1d, transparent);
+}
+
+/* 💎 Cam Kart (Glassmorphism) */
 .max-w-2xl {
-    background: rgba(30, 41, 59, 0.7) !important; /* Yarı şeffaf panel */
-    backdrop-filter: blur(16px); /* Arkadaki ışığı bulanıklaştırır */
-    border: 1px solid rgba(255, 255, 255, 0.1); /* İnce beyaz kenarlık */
-    border-radius: 24px;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
-}
-
-/* 4. Dokunuş: Seçim kutularını (Select) daha modern yapar */
-select {
-    background: rgba(15, 23, 42, 0.8) !important;
+    background: rgba(15, 23, 42, 0.6) !important; /* Şeffaf lacivert */
+    backdrop-filter: blur(20px) saturate(180%); /* Arkayı bulanıklaştırır */
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
     border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    color: #e2e8f0 !important;
-    cursor: pointer;
+    border-radius: 32px !important;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
 }
 
-/* 5. Dokunuş: "Analiz Et" butonuna parlaklık verir */
+/* 🖋️ Soruların ve Başlıkların Şıklığı */
+h1 {
+    letter-spacing: -1px;
+}
+
+label {
+    font-size: 0.9rem;
+    color: #94a3b8 !important; /* Soft gri */
+    margin-left: 4px;
+}
+
+/* 🔘 Seçim Kutuları (Select) */
+select {
+    background: rgba(30, 41, 59, 0.5) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    border-radius: 12px !important;
+    padding: 12px !important;
+    transition: all 0.3s ease;
+}
+
+select:focus {
+    border-color: #6366f1 !important;
+    background: rgba(30, 41, 59, 0.8) !important;
+}
+
+/* 🚀 Buton Efekti */
 button {
-    background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%) !important;
+    background: linear-gradient(135deg, #ef4444 0%, #6366f1 100%) !important;
+    color: white !important;
     border: none !important;
-    transition: all 0.3s ease-in-out !important;
-    text-transform: uppercase;
+    font-weight: 800 !important;
     letter-spacing: 1px;
+    box-shadow: 0 10px 20px -5px rgba(239, 68, 68, 0.3);
 }
 
 button:hover {
-    transform: translateY(-3px) scale(1.02);
-    box-shadow: 0 15px 30px rgba(99, 102, 241, 0.4);
+    transform: scale(1.02);
     filter: brightness(1.2);
+    box-shadow: 0 20px 30px -10px rgba(99, 102, 241, 0.5);
 }
