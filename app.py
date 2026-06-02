@@ -6,11 +6,11 @@ import os
 app = Flask(__name__)
 app.secret_key = 'hantavirus_ozel_anahtar' 
 
-# Veritabanı Yolu
-BASE_DIR = os.path.abspath(os.path.dirname(__file__))
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(BASE_DIR, 'veritabani.db')
+# Veritabanı Yolu - Render için en güvenli olan /tmp/ klasörü
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/veritabani.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+# BU SATIR EKSİKTİ, EKLEDİM:
 db = SQLAlchemy(app)
 
 class Kullanici(db.Model):
@@ -22,7 +22,6 @@ class Kullanici(db.Model):
 @app.route('/kayit', methods=['GET', 'POST'])
 def kayit():
     if request.method == 'POST':
-        # Kullanıcı zaten var mı kontrolü (opsiyonel ama iyi olur)
         mevcut_user = Kullanici.query.filter_by(eposta=request.form.get('eposta')).first()
         if mevcut_user:
             flash("Bu e-posta zaten kayıtlı!")
@@ -45,10 +44,8 @@ def login():
             session['user_name'] = user.isim
             return redirect(url_for('ana_sayfa'))
         else:
-            # GÖRSELDEKİ KIRMIZI YAZIYI BURASI ÇALIŞTIRIR
             flash("Giriş bilgileri hatalı!")
             return redirect(url_for('login'))
-            
     return render_template('login.html')
 
 @app.route('/')
@@ -65,4 +62,6 @@ def logout():
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
-    app.run(debug=True)
+    # Render için port ayarı
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
