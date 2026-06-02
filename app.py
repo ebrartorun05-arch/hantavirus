@@ -100,6 +100,21 @@ def ana_sayfa():
     )
 
 # ==========================
+# KULLANICILAR
+# ==========================
+@app.route("/kullanicilar")
+def kullanicilar():
+
+    tum_kullanicilar = Kullanici.query.all()
+
+    sonuc = ""
+
+    for k in tum_kullanicilar:
+        sonuc += f"{k.id} - {k.isim} - {k.eposta}<br>"
+
+    return sonuc
+    
+# ==========================
 # ÇIKIŞ
 # ==========================
 @app.route("/logout")
