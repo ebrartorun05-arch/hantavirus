@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kayıt Ol - Hantavirüs Tanı</title>
+    <style>
+        body {
+            background: #0f0c29;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+        }
+        .register-card {
+            background: rgba(20, 20, 40, 0.8);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            width: 380px;
+            border: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+        }
+        h2 { color: #fff; margin-bottom: 25px; font-weight: 300; }
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: #fff;
+            box-sizing: border-box; /* Kaymayı önler */
+        }
+        input:focus {
+            outline: none;
+            border-color: #ff416c;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 20px;
+            background: linear-gradient(to right, #ff416c, #ff4b2b);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 65, 108, 0.4);
+        }
+        .login-link {
+            margin-top: 20px;
+            display: block;
+            color: #aaa;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .login-link span { color: #ff416c; }
+    </style>
+</head>
+<body>
+    <div class="register-card">
+        <h2>Yeni Hesap Oluştur</h2>
+        {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+      <p style="color: #ff416c; font-size: 14px; margin-bottom: 15px;">{{ message }}</p>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+        <form action="/kayit" method="POST">
+            <input type="text" name="isim" placeholder="Adınız Soyadınız" required>
+            <input type="email" name="eposta" placeholder="E-posta Adresiniz" required>
+            <input type="password" name="sifre" placeholder="Şifreniz" required>
+            <button type="submit">KAYIT OL</button>
+        </form>
+        <a href="/login" class="login-link">Zaten hesabın var mı? <span>Giriş Yap</span></a>
+    </div>
+</body>
+</html>
