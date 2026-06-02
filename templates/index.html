@@ -20,3 +20,91 @@
     <div id="resultBox" class="hidden animate-fade-in">
         </div>
 </div>
+
+<script>
+    // 1. Soruların Listesi (Eksik olan 10 soruyu geri getirdik)
+    const sorular = [
+        "Yüksek Ateş (38°C+)",
+        "Şiddetli Baş Ağrısı",
+        "Kas ve Eklem Ağrıları (Sırt, Kalça, Bacak)",
+        "Öksürük ve Nefes Darlığı",
+        "Mide Bulantısı veya Kusma",
+        "İshal veya Karın Ağrısı",
+        "Aşırı Halsizlik ve Yorgunluk",
+        "Işığa Karşı Duyarlılık",
+        "Böcek/Kemirgen Teması Var mı?",
+        "Yüzde veya Gözlerde Kızarıklık"
+    ];
+
+    // 2. Soruları Sayfa Açıldığında Otomatik Oluşturma
+    const container = document.getElementById('questionsContainer');
+    
+    // Sayfa yüklendiğinde soruları basar
+    window.onload = function() {
+        sorular.forEach((soru, index) => {
+            container.innerHTML += `
+                <div class="question-card p-4 rounded-lg bg-gray-800/50 border border-gray-700 hover:border-indigo-500 transition-colors">
+                    <label class="block text-gray-200 font-semibold mb-3">${index + 1}. ${soru}</label>
+                    <select class="w-full p-3 bg-gray-900 text-white rounded-lg border border-gray-600 focus:ring-2 focus:ring-indigo-500 outline-none cursor-pointer">
+                        <option value="0">Yok / Belirti Yok</option>
+                        <option value="1">Hafif</option>
+                        <option value="2">Orta</option>
+                        <option value="3">Şiddetli</option>
+                    </select>
+                </div>
+            `;
+        });
+    };
+
+    // 3. Analiz Etme Fonksiyonu
+    function analizEt() {
+        const selects = document.querySelectorAll('select');
+        let toplamPuan = 0;
+        
+        // Puanları topla
+        selects.forEach(s => {
+            toplamPuan += parseInt(s.value);
+        });
+
+        const resultBox = document.getElementById('resultBox');
+        resultBox.classList.remove('hidden'); // Gizli olan kutuyu aç
+        
+        let riskMesaji = "";
+        let renkSinifi = "";
+
+        // Risk hesaplama mantığı
+        if (toplamPuan >= 15) {
+            riskMesaji = "🚨 YÜKSEK RİSK: Belirtileriniz ciddi görünüyor. Lütfen vakit kaybetmeden en yakın sağlık kuruluşuna başvurun!";
+            renkSinifi = "bg-red-900/40 border-red-500 text-red-200";
+        } else if (toplamPuan >= 7) {
+            riskMesaji = "⚠️ ORTA RİSK: Belirtileri yakından takip edin. Şikayetleriniz artarsa doktora görünün.";
+            renkSinifi = "bg-yellow-900/40 border-yellow-500 text-yellow-200";
+        } else {
+            riskMesaji = "✅ DÜŞÜK RİSK: Şu an için endişe verici bir durum saptanmadı. İstirahat edin ve sıvı tüketin.";
+            renkSinifi = "bg-green-900/40 border-green-500 text-green-200";
+        }
+
+        // Sonucu ekrana bas
+        resultBox.innerHTML = `
+            <div class="p-6 rounded-xl border-2 ${renkSinifi} text-center shadow-2xl animate-pulse">
+                <p class="text-xl font-bold uppercase mb-2">Analiz Sonucu</p>
+                <p class="text-lg">${riskMesaji}</p>
+                <p class="text-sm mt-4 opacity-75">Toplam Belirti Puanı: ${toplamPuan}</p>
+            </div>
+        `;
+        
+        // Sonuca otomatik kaydır
+        resultBox.scrollIntoView({ behavior: 'smooth' });
+    }
+</script>
+
+<style>
+    /* Daha güzel bir görünüm için küçük bir animasyon */
+    .animate-fade-in {
+        animation: fadeIn 0.5s ease-in;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
