@@ -7,7 +7,6 @@ app = Flask(__name__)
 app.secret_key = 'hantavirus_ozel_anahtar' 
 
 # Veritabanı Yolu
-BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///veritabani.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
