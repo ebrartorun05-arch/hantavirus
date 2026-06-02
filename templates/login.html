@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giriş Yap - Hantavirüs Tanı</title>
+    <style>
+        /* Tasarımın mevcut uygulamanla uyumlu olması için CSS ayarları */
+        body {
+            background: #0f0c29;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+        }
+        .login-card {
+            background: rgba(25, 25, 50, 0.9);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+            width: 350px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        h2 { color: white; margin-bottom: 30px; font-weight: 300; }
+        
+        .input-group { margin-bottom: 20px; }
+        
+        input {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: white;
+            outline: none;
+            box-sizing: border-box;
+        }
+        input:focus { border-color: #ff416c; }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(to right, #ff416c, #ff4b2b);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+        button:hover {
+            box-shadow: 0 0 20px rgba(255, 65, 108, 0.5);
+            transform: scale(1.02);
+        }
+        .footer-links {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #aaa;
+        }
+        .footer-links a { color: #ff416c; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="login-card">
+        <h2>Sisteme Giriş</h2>
+        {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+      <p style="color: #ff416c; font-size: 14px;">{{ message }}</p>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+        
+        <form action="/login" method="POST">
+            <div class="input-group">
+                <input type="email" name="eposta" placeholder="E-posta Adresi" required>
+            </div>
+            <div class="input-group">
+                <input type="password" name="sifre" placeholder="Şifre" required>
+            </div>
+            <button type="submit">GİRİŞ YAP</button>
+        </form>
+
+        <div class="footer-links">
+            Hesabın yok mu? <a href="/kayit">Kayıt Ol</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,77 @@
+/* Arka Plan ve Genel Ayarlar */
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh; /* HATA DÜZELTİLDİ: 'min-h-screen' CSS değil, Tailwind özelliğidir */
+    /* Koyu mavi ve mor karışımı derinlikli bir gradyan */
+    background: radial-gradient(circle at top right, #1e1b4b, #0f172a);
+    background-attachment: fixed;
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Hareketli Arka Plan Işıkları */
+body::before {
+    content: "";
+    position: fixed;
+    top: -10%;
+    left: -10%;
+    width: 40%;
+    height: 40%;
+    background: rgba(79, 70, 229, 0.15); 
+    filter: blur(120px);
+    border-radius: 50%;
+    z-index: -1;
+}
+
+/* Cam Efektli Kart (Glassmorphism) */
+/* .max-w-2xl bir sınıf olduğu için HTML'de bu sınıfa sahip elemanı etkiler */
+.max-w-2xl {
+    background: rgba(30, 41, 59, 0.7) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px); /* Safari desteği için eklendi */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    border-radius: 1rem; /* Kartın köşelerini yumuşatmak için ekledim */
+}
+
+/* Şık Buton Efekti */
+button {
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%) !important;
+    color: white !important;
+    border: none; /* Kenarlık varsa kaldırmak için */
+    padding: 10px 20px; /* Butonun iç boşluğu için */
+    border-radius: 8px; /* Köşe yuvarlama */
+    box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.4);
+    transition: all 0.3s ease !important;
+    cursor: pointer; /* Üstüne gelince el işareti çıksın */
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 20px 25px -5px rgba(79, 70, 229, 0.5);
+    filter: brightness(1.1);
+}
+
+/* Giriş Alanlarını (Select) Güzelleştirme */
+select {
+    background: rgba(15, 23, 42, 0.6) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: white !important; /* Yazı rengini beyaz yapmazsan okunmaz */
+    padding: 8px;
+    border-radius: 6px;
+    transition: border 0.3s ease;
+    outline: none;
+}
+
+select:focus {
+    border-color: #6366f1 !important;
+}
+
+/* Select içindeki seçeneklerin arka planını düzeltme */
+option {
+    background: #1e1b4b;
+    color: white;
+}
