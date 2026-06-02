@@ -98,7 +98,20 @@ def ana_sayfa():
         "index.html",
         isim=session["user_name"]
     )
+# ==========================
+# KULLANICILAR
+# ==========================
+@app.route("/kullanicilar")
+def kullanicilar():
 
+    tum_kullanicilar = Kullanici.query.all()
+
+    sonuc = ""
+
+    for k in tum_kullanicilar:
+        sonuc += f"{k.id} - {k.isim} - {k.eposta}<br>"
+
+    return sonuc
 # ==========================
 # ÇIKIŞ
 # ==========================
